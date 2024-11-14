@@ -55,6 +55,22 @@ namespace UrlShortener.Controllers {
 
             return Redirect(urlObj.Url);
         }
+        public IActionResult ManageUrls()
+        {
+            var urls = db.Urls.ToList();
+            return View(urls);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteUrl(int id)
+        {
+            var url = db.Urls.Find(id);
+            if (url != null) {
+                db.Urls.Remove(url);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ManageUrls");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() {

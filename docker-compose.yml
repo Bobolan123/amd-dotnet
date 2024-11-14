@@ -14,7 +14,7 @@ services:
     networks:
       - sqlnetwork
     healthcheck:
-      test: ["CMD-SHELL", "echo 'SELECT 1' | /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd"]
+      test: "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -Q \"SELECT 1\""
       interval: 30s
       timeout: 10s
       retries: 5

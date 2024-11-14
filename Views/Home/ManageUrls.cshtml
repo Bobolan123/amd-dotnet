@@ -1,0 +1,77 @@
+﻿@model IEnumerable<UrlShortener.Models.UrlManager>
+
+@{
+    ViewData["Title"] = "Manage URLs";
+    Layout = "~/Views/Shared/_ManageUrls.cshtml";
+}
+
+
+
+<h2>Manage URLs</h2>
+<style>
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Enables horizontal scrolling on small screens */
+    }
+
+    .table {
+        min-width: 600px; /* Set a minimum width */
+    }
+
+        .table th {
+            background-color: #28a745; /* Green header background */
+            color: white; /* White text color */
+        }
+
+        .table tr {
+            background-color: #f8f9fa; /* Light gray for table rows */
+        }
+
+            .table tr:hover {
+                background-color: #e2e6ea; /* Slightly darker gray on row hover */
+            }
+
+        .table td {
+            color: #333; /* Dark gray for table cell text */
+        }
+</style>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Url</th>
+                        <th>ShortCut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0; // Initialize an index variable
+                    }
+                    @foreach (var url in Model)
+                    {
+                        var rowClass = index % 2 == 0 ? "table-light" : "table-secondary"; // Alternate row classes
+                        <tr class="@rowClass">
+                            <td>@url.Id</td>
+                            <td>@url.Url</td>
+                            <td>@url.ShortUrl</td>
+                            <td>
+                                <form asp-action="DeleteUrl" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@url.Id" />
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this URL?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    

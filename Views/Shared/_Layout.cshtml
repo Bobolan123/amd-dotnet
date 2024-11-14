@@ -18,7 +18,16 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                 
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ManageUrls", "Home")">Manage URLs</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -34,17 +43,17 @@
                                         <i class="bi bi-link-45deg"></i> Shorten a long URL
                                     </h5>
                                     @* <form method="post">
-                                        <div class="mb-3">
-                                            <input class="form-control" placeholder="Enter a Long URL" />
-                                            <span asp-validation-for="Url"></span>
-                                        </div>
+                                    <div class="mb-3">
+                                    <input class="form-control" placeholder="Enter a Long URL" />
+                                    <span asp-validation-for="Url"></span>
+                                    </div>
 
-                                        <div class="mb-3">
-                                            <label>Shortened URL</label>
-                                            <input class="form-control" />
-                                        </div>
+                                    <div class="mb-3">
+                                    <label>Shortened URL</label>
+                                    <input class="form-control" />
+                                    </div>
 
-                                        <button type="submit" class="btn btn-dark btn-outline-light">Shorten URL</button>
+                                    <button type="submit" class="btn btn-dark btn-outline-light">Shorten URL</button>
                                     </form> *@
                                     @RenderBody()
                                 </div>
@@ -71,7 +80,6 @@
         </main>
     </div>
 
- 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
