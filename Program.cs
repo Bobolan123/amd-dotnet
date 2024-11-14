@@ -13,6 +13,10 @@ namespace UrlShortener
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+            // Add Memory Cache
+            builder.Services.AddMemoryCache();
+
+
             // Add DbContext with SQL Server and retry logic
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
