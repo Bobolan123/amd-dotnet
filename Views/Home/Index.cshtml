@@ -25,6 +25,7 @@
 
     @if (!string.IsNullOrEmpty(Model.ShortUrl)) {
         <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ms-2" style="width:140px">Try again</a>
+        <button type="button" class="btn btn-secondary ms-2" onclick="redirectToUrl()">Go to URL</button>
     }
 </form>
 
@@ -33,5 +34,15 @@
         var input = document.getElementById("shortUrlInput");
         input.select();
         document.execCommand("copy");
+    }
+
+    function redirectToUrl() {
+        var url = document.getElementById("shortUrlInput").value;
+        
+        if (typeof url === 'string' && url.trim() !== '') {
+            window.location.href = url;
+        } else {
+            console.error('Invalid URL');
+        }
     }
 </script>

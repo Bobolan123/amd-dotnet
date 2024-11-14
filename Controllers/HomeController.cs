@@ -59,7 +59,12 @@ namespace UrlShortener.Controllers
             urlObj = new UrlManager()
             {
                 Url = obj.Url,
+<<<<<<< HEAD
                 ShortUrl = $"{ctx.Request.Scheme}://{ctx.Request.Host.Host}:{ctx.Request.Host.Port}/SUrl/{randomString}"
+=======
+                ShortUrl = (obj.Url.Length > 50)? $"{ctx.Request.Scheme}://{ctx.Request.Host.Host}:{ctx.Request.Host.Port}/SUrl/{randomString}" : obj.Url
+                /*ShortUrl = $"localhost:44313/SUrl/{randomString}"*/
+>>>>>>> 1be0a35b7e9847b1f6577e7ec39ff9cb453162cc
             };
 
             return RedirectToAction("Index", urlObj);
