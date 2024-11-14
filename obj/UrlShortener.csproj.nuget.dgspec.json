@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\quang\\Desktop\\SCHOOL STUDY\\AMD201\\COURSEWORK\\amd-dotnet\\UrlShortener.csproj": {}
   },
   "projects": {
@@ -12,9 +13,30 @@
         "projectPath": "C:\\Users\\quang\\Desktop\\SCHOOL STUDY\\AMD201\\COURSEWORK\\amd-dotnet\\UrlShortener.csproj",
         "packagesPath": "C:\\Users\\quang\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\quang\\Desktop\\SCHOOL STUDY\\AMD201\\COURSEWORK\\amd-dotnet\\obj\\",
+=======
+    "D:\\UNI_COURSES\\AMD201 dotnet core\\Coursework-dotnet\\Url-Shortener-master\\UrlShortener\\UrlShortener.csproj": {}
+  },
+  "projects": {
+    "D:\\UNI_COURSES\\AMD201 dotnet core\\Coursework-dotnet\\Url-Shortener-master\\UrlShortener\\UrlShortener.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\UNI_COURSES\\AMD201 dotnet core\\Coursework-dotnet\\Url-Shortener-master\\UrlShortener\\UrlShortener.csproj",
+        "projectName": "UrlShortener",
+        "projectPath": "D:\\UNI_COURSES\\AMD201 dotnet core\\Coursework-dotnet\\Url-Shortener-master\\UrlShortener\\UrlShortener.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "D:\\UNI_COURSES\\AMD201 dotnet core\\Coursework-dotnet\\Url-Shortener-master\\UrlShortener\\obj\\",
+>>>>>>> c65fc58d1dcb4d515b493bebc233b44fcec81261
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\quang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> c65fc58d1dcb4d515b493bebc233b44fcec81261
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -92,7 +114,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+>>>>>>> c65fc58d1dcb4d515b493bebc233b44fcec81261
         }
       }
     }
