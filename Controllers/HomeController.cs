@@ -1,20 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 using UrlShortener.Data;
 using UrlShortener.Models;
 
-namespace UrlShortener.Controllers {
-    public class HomeController : Controller {
+namespace UrlShortener.Controllers
+{
+    public class HomeController : Controller
+    {
         private readonly ApplicationDbContext db;
+        private readonly IMemoryCache _cache;
 
-        public HomeController(ApplicationDbContext _db) { db = _db; }
-        public IActionResult Index(UrlManager obj, int val=0) { return View(obj); }
+        public HomeController(ApplicationDbContext _db, IMemoryCache cache)
+        {
+            db = _db;
+            _cache = cache;
+        }
+
+        public IActionResult Index(UrlManager obj, int val = 0)
+        {
+            return View(obj);
+        }
 
         // POST : Create URL
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(UrlManager obj) {
-            
+        public IActionResult Index(UrlManager obj)
+        {
             if (string.IsNullOrEmpty(obj.Url) || !Uri.TryCreate(obj.Url, UriKind.Absolute, out var inputUrl))
                 return View(obj);
 
@@ -25,13 +37,16 @@ namespace UrlShortener.Controllers {
                 .ToArray()
             );
 
-            while(db.Urls.Any(u => u.ShortUrl == randomString)) {
+            while (db.Urls.Any(u => u.ShortUrl == randomString))
+            {
                 randomString = new string(Enumerable.Repeat(chars, 8)
                     .Select(x => x[random.Next(x.Length)])
                     .ToArray()
                 );
             }
-            var urlObj = new UrlManager() {
+
+            var urlObj = new UrlManager()
+            {
                 Url = obj.Url,
                 ShortUrl = randomString
             };
@@ -41,23 +56,44 @@ namespace UrlShortener.Controllers {
 
             var ctx = HttpContext;
 
-            urlObj = new UrlManager() {
+            urlObj = new UrlManager()
+            {
                 Url = obj.Url,
                 ShortUrl = $"{ctx.Request.Scheme}://{ctx.Request.Host.Host}:{ctx.Request.Host.Port}/SUrl/{randomString}"
-                /*ShortUrl = $"localhost:44313/SUrl/{randomString}"*/
             };
+
             return RedirectToAction("Index", urlObj);
         }
 
-        public IActionResult RedirectToOriginalUrl(string shortURL) {
-            var urlObj = db.Urls.FirstOrDefault(u => u.ShortUrl == shortURL);
-            if (urlObj == null) { return NotFound(); }
+        public IActionResult RedirectToOriginalUrl(string shortUrl)
+        {
+            // Check if URL is in cache
+            if (!_cache.TryGetValue(shortUrl, out string originalUrl))
+            {
+                // If not in cache, fetch from database
+                var urlObj = db.Urls.FirstOrDefault(u => u.ShortUrl == shortUrl);
 
-            return Redirect(urlObj.Url);
+                if (urlObj == null)
+                {
+                    return NotFound();
+                }
+
+                originalUrl = urlObj.Url;
+
+                // Set cache options
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(30)); // Cache entry expires if not accessed for 30 minutes
+
+                // Save data in cache
+                _cache.Set(shortUrl, originalUrl, cacheEntryOptions);
+            }
+
+            return Redirect(originalUrl);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() {
+        public IActionResult Error()
+        {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
